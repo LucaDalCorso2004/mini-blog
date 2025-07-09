@@ -1,0 +1,4 @@
+includes/db.php
+*.log
+/vendor/
+/node_modules/
