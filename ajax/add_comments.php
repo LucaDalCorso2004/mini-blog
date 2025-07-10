@@ -6,7 +6,7 @@ require_once '../includes/db.php';// PDO-Verbindung
     {
  global $conn;       
         $date = date("Y/m/d H:i");
-        var_dump($title);
+     
 
         try {
             $sql = "INSERT INTO posts (title, content, created_at)
