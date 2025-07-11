@@ -6,7 +6,7 @@ function search($title)
     global $conn;
 
     try {
-        $stmt = $conn->prepare("SELECT title, content, created_at FROM posts WHERE title LIKE :title");
+        $stmt = $conn->prepare("SELECT id, title, content, created_at FROM posts WHERE title LIKE :title");
         $like = "%" . $title . "%";
         $stmt->execute([':title' => $like]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC); // ← richtige Rückgabe
@@ -18,7 +18,7 @@ function search($title)
 function all(){
 try {
       global $conn;
-        $stmt = $conn->prepare("SELECT title, content, created_at FROM posts");
+        $stmt = $conn->prepare("SELECT id, title, content, created_at FROM posts");
     $stmt->execute();  
 
     $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -46,11 +46,21 @@ if (trim($title) === '') {
         if ($results !== false && count($results) > 0) {
          
             foreach ($results as $row) {
-                echo "<div>";
-                echo "<h3>" . htmlspecialchars($row['title']) . "</h3>";
-                echo "<p>" . htmlspecialchars($row['content']) . "</p>";
-                echo "<small>" . htmlspecialchars($row['created_at']) . "</small>";
-                echo "</div><hr>";
+           $postId = $row['id'];
+
+echo "<div class='post' id='post_$postId'>";
+echo "<h3>" . htmlspecialchars($row['title']) . "</h3>";
+echo "<p>" . htmlspecialchars($row['content']) . "</p>";
+echo "<small>" . htmlspecialchars($row['created_at']) . "</small>";
+echo "<br>";
+
+echo "<input type='text' id='kom_$postId' name='kom' placeholder='Antwort'>";
+echo "<button onclick=\"komant(document.getElementById('kom_$postId').value, $postId)\">Absenden</button>";
+echo "<button onclick=\"viewkomant('', $postId)\">Kommentare anzeigen</button>";
+
+echo "<div id='comments_$postId'></div>";
+echo "</div><hr>";
+
             }
         } else {
             echo "Keine Ergebnisse gefunden.";

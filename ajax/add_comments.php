@@ -24,6 +24,8 @@ require_once '../includes/db.php';// PDO-Verbindung
             return false;
         }
     }
+
+    
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'] ?? '';
     $content = $_POST['content'] ?? '';
