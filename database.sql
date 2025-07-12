@@ -1,19 +1,24 @@
 -- Datenbank anlegen (optional, falls noch nicht vorhanden)
 CREATE DATABASE IF NOT EXISTS mini_blog CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE mini_blog;
-
+CREATE TABLE IF NOT EXISTS password_list (
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    benutzername VARCHAR(25) NOT NULL UNIQUE,
+    passwordhash VARCHAR(255) NOT NULL
+);
 -- Tabelle für Blogposts
 CREATE TABLE IF NOT EXISTS posts (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT UNSIGNED NOT NULL,  -- Verknüpfung zum Benutzer
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES password_list(id) ON DELETE CASCADE
 );
 
+
+
 -- Beispiel-Daten für posts
-INSERT INTO posts (title, content) VALUES
-('Erster Beitrag', 'Das ist der Inhalt des ersten Beitrags.'),
-('Zweiter Beitrag', 'Das ist der Inhalt des zweiten Beitrags.');
 
 -- Tabelle für Kommentare
 CREATE TABLE IF NOT EXISTS comments (
@@ -25,8 +30,4 @@ CREATE TABLE IF NOT EXISTS comments (
     FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
 );
 
--- Beispiel-Daten für comments
-INSERT INTO comments (post_id, name, content) VALUES
-(1, 'Anna', 'Toller Beitrag!'),
-(1, 'Max', 'Danke für die Infos.'),
-(2, 'Lisa', 'Interessant geschrieben.');
+
