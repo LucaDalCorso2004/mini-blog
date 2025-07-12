@@ -18,6 +18,33 @@ window.onload = function () {
 };
 
 
+
+
+
+function deleteBlog(postId) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+
+            if (this.responseText.includes("erfolgreich")) {
+                // Beitrag sofort aus dem DOM entfernen
+                var postElement = document.getElementById("post_" + postId);
+                if (postElement) {
+                    postElement.remove();
+                }
+            } else {
+                alert("Fehler beim Löschen: " + this.responseText);
+            }
+        }
+    };
+
+    var params = "id=" + encodeURIComponent(postId);
+    xmlhttp.open("GET", "ajax/delete_Blog.php?" + params, true);
+    xmlhttp.send();
+}
+
+
 function komant(answer, id) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
@@ -30,9 +57,74 @@ function komant(answer, id) {
     // Beide Parameter korrekt encodieren
     var params = "q=" + encodeURIComponent(answer) + "&id=" + encodeURIComponent(id);
 
-    xmlhttp.open("GET", "ajax/add_kom.php?" + params, true);
+    xmlhttp.open("GET", "ajax/create_Comment.php?" + params, true);
     xmlhttp.send();
 }
+
+
+function updateBlog(title, content, id) {
+    console.log("Blog-Funktion aufgerufen mit:", title, content, id);
+
+    if (!title || !content || !id) {
+        alert("Alle Felder müssen ausgefüllt sein!");
+        return;
+    }
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                console.log("Erfolgreiche Antwort:", this.responseText);
+                // Hier kannst du z.B. deine Anzeige aktualisieren, z.B. nochmal searchBlog("");
+                // oder nur eine Erfolgsmeldung anzeigen
+                alert(this.responseText);
+            } else {
+                console.error("Fehler beim Request:", this.status);
+            }
+        }
+    };
+    var params = "title=" + encodeURIComponent(title) +
+        "&id=" + encodeURIComponent(id) +
+        "&content=" + encodeURIComponent(content);
+
+    xmlhttp.open("POST", "ajax/update_Blog.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(params);
+}
+
+
+function Blog(title, content, id) {
+    console.log("Blog-Funktion aufgerufen mit:", title, content, id);
+
+    if (!title || !content || !id) {
+        alert("Alle Felder müssen ausgefüllt sein!");
+        return;
+    }
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                console.log("Erfolgreiche Antwort:", this.responseText);
+
+                document.getElementById("txtHint").innerHTML = this.responseText;
+            } else {
+                console.error("Fehler beim Request:", this.status);
+            }
+        }
+    };
+
+    var params = "title=" + encodeURIComponent(title) +
+        "&id=" + encodeURIComponent(id) +
+        "&content=" + encodeURIComponent(content);
+
+    xmlhttp.open("POST", "ajax/create_Blog.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(params);
+}
+
+
+
 
 function viewkomant(_, postId) {
     var xmlhttp = new XMLHttpRequest();
@@ -44,7 +136,6 @@ function viewkomant(_, postId) {
                 return;
             }
 
-            // Noch nicht sichtbar → einblenden & laden
             commentsContainer.style.display = "block";
 
             if (!commentsContainer) return;
@@ -67,3 +158,62 @@ function viewkomant(_, postId) {
     xmlhttp.send();
 }
 
+const loginform = document.getElementById('loginform')
+if (loginform) {
+    loginform.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        formData.append('action', 'login');
+        fetch('ajax/login_USer.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData)
+        })
+            .then(res => res.text())
+            .then(result => {
+                console.log("Antwort vom Server:", result);
+
+                if (result.trim() === 'login') {
+                    alert("Login erfolgreich!");
+                    window.location.href = 'index.php';
+                } else {
+                    alert("Fehler: " + result);
+                }
+            })
+            .catch(err => {
+                alert("Netzwerkfehler beim Login");
+                console.error(err);
+            });
+    });
+}
+
+
+
+const registrierenform = document.getElementById('registrierenform');
+
+
+if (registrierenform) {
+
+    registrierenform.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        formData.append('action', 'registrieren');
+
+        fetch('ajax/create_User.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData)
+        })
+            .then(res => res.text())
+            .then(result => {
+
+                if (result.trim() === 'registriert') {
+                    alert("Registrierung erfolgreich!");
+                    window.location.href = 'login.php';
+                } else {
+                    alert("Fehler: " + result);
+                }
+            })
+            .catch(() => alert("Netzwerkfehler beim Registrieren"));
+    });
+}
