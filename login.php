@@ -21,13 +21,14 @@ password:     <input type="password" name="password"required><br>
 </form>
 
 <h3>Oder möchten sie einen account regestriren</h1>
+<button onclick="window.location.href='regestiren.php'">Registrieren</button>
 
 </div>
 <script src="assets/scrpit.js"></script>
 </main>
 
 <footer>
-    <p>&copy; 2025 Meine ToDo App</p>
+ 
 </footer>
 
 </body>

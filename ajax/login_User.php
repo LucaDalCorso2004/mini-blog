@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
     if (!empty($benutzername) && !empty($password)) {
         if (login($benutzername, $password)) {
-            echo 'registriert';
+            echo 'login';
         } else {
             echo 'Benutzername existiert bereits!';
         }

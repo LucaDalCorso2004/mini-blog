@@ -3,8 +3,10 @@ function searchBlog(title) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("txtHint").innerHTML = this.responseText;
-
+            var hintElem = document.getElementById("txtHint");
+            if (hintElem) {
+                hintElem.innerHTML = this.responseText;
+            }
         }
     };
     xmlhttp.open("GET", "ajax/search_post.php?q=" + encodeURIComponent(title), true);
@@ -104,15 +106,21 @@ function Blog(title, content, id) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
+
             if (this.status == 200) {
                 console.log("Erfolgreiche Antwort:", this.responseText);
 
-                document.getElementById("txtHint").innerHTML = this.responseText;
-            } else {
+                // Wenn du nicht zwingend etwas anzeigen musst, kannst du das auskommentieren oder entfernen:
+                // document.getElementById("txtHint").innerHTML = this.responseText;
+
+                window.location.href = "index.php";
+            }
+            else {
                 console.error("Fehler beim Request:", this.status);
             }
         }
     };
+
 
     var params = "title=" + encodeURIComponent(title) +
         "&id=" + encodeURIComponent(id) +
@@ -164,7 +172,7 @@ if (loginform) {
         e.preventDefault();
         const formData = new FormData(this);
         formData.append('action', 'login');
-        fetch('ajax/login_USer.php', {
+        fetch('ajax/login_User.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams(formData)

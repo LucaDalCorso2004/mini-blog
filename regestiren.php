@@ -25,7 +25,7 @@ password: <input type="password" name="password"required><br>
 </main>
 
 <footer>
-    <p>&copy; 2025 Meine ToDo App</p>
+
 </footer>
 
 </body>

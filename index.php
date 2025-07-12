@@ -6,6 +6,8 @@
     <title>Document</title>
 </head>
 <body>
+      <button onclick="window.location.href='post.php'">Neuer Beitrag</button>
+
       <input type="text" id="fname" name="fname" onkeyup="searchBlog(this.value)">
     
 <div id="txtHint"></div>
