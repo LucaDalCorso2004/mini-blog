@@ -1,5 +1,5 @@
 <?php
-require_once '../includes/db.php'; // PDO-Verbindung
+require_once '../includes/db.php'; 
 session_start();
 $user_id = $_SESSION['user_id'] ?? null; 
 function search($title)
@@ -10,7 +10,7 @@ function search($title)
         $stmt = $conn->prepare("SELECT id, user_id,title, content, created_at FROM posts WHERE title LIKE :title");
         $like = "%" . $title . "%";
         $stmt->execute([':title' => $like]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC); // ← richtige Rückgabe
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
     } catch (PDOException $e) {
         return false;
     }
@@ -34,8 +34,6 @@ return $comments;
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $title = $_GET['q'] ?? ''; 
 
-  var_dump($title);
-
 if (trim($title) === '') {
  
     $results = all();
@@ -43,7 +41,7 @@ if (trim($title) === '') {
    
     $results = search($title);
 }
-      var_dump($results);
+
         if ($results !== false && count($results) > 0) {
          
             foreach ($results as $row) {
@@ -78,7 +76,7 @@ echo "<button onclick=\"komant(document.getElementById('kom_$postId').value, $po
 echo "<button onclick=\"viewkomant('', $postId)\">Kommentare anzeigen</button>";
 
 echo "<div id='comments_$postId'></div>";
-echo "<hr></div>";
+echo "</div>";
 
 
             }

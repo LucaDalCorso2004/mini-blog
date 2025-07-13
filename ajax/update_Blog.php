@@ -6,7 +6,7 @@ function updateBlog($title, $content, $post_id)
     global $conn;
 
     try {
-        // SQL-Statement vorbereiten
+     
         $sql = "UPDATE posts SET title = :title, content = :content WHERE id = :id ";
         $stmt = $conn->prepare($sql);
 

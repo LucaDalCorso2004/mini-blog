@@ -9,7 +9,7 @@ function createComment($content, $postId)
         session_start();
     }
 
-    $benutzername = $_SESSION['benutzername'] ?? 'Gast'; // Fallback falls nicht eingeloggt
+    $benutzername = $_SESSION['benutzername'] ?? 'Gast'; 
 
     try {
         $stmt = $conn->prepare("

@@ -77,8 +77,7 @@ function updateBlog(title, content, id) {
         if (this.readyState == 4) {
             if (this.status == 200) {
                 console.log("Erfolgreiche Antwort:", this.responseText);
-                // Hier kannst du z.B. deine Anzeige aktualisieren, z.B. nochmal searchBlog("");
-                // oder nur eine Erfolgsmeldung anzeigen
+
                 alert(this.responseText);
             } else {
                 console.error("Fehler beim Request:", this.status);
@@ -109,9 +108,6 @@ function Blog(title, content, id) {
 
             if (this.status == 200) {
                 console.log("Erfolgreiche Antwort:", this.responseText);
-
-                // Wenn du nicht zwingend etwas anzeigen musst, kannst du das auskommentieren oder entfernen:
-                // document.getElementById("txtHint").innerHTML = this.responseText;
 
                 window.location.href = "index.php";
             }

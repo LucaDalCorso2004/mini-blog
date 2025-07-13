@@ -3,7 +3,9 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+      <link rel="stylesheet" href="assets/style.css">
     <title>Login</title>
+    
 
 </head>
 <body>
@@ -15,8 +17,8 @@
 
 <div style='text-align:center;'>
 <form id="loginform">
-benutzername: <input type="text" name="benutzername"required><br>
-password:     <input type="password" name="password"required><br>
+Benutzername: <input type="text" name="benutzername"required><br>
+Password:     <input type="password" name="password"required><br>
 <input type="submit" >
 </form>
 
@@ -28,7 +30,7 @@ password:     <input type="password" name="password"required><br>
 </main>
 
 <footer>
- 
+    &copy; 2025 Mein Blog
 </footer>
 
 </body>

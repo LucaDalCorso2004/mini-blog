@@ -3,6 +3,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+      <link rel="stylesheet" href="assets/style.css">
     <title>Registrieren</title>
    
 </head>
@@ -23,9 +24,8 @@ password: <input type="password" name="password"required><br>
 </div>
 <script src="assets/scrpit.js"></script>
 </main>
-
 <footer>
-
+    &copy; 2025 Mein Blog
 </footer>
 
 </body>
