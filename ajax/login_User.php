@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         if (login($benutzername, $password)) {
             echo 'login';
         } else {
-            echo 'Benutzername existiert bereits!';
+            echo 'Benutzername oder Passwort ist falsch!';
         }
     } else {
         echo 'Bitte alle Felder ausfüllen!';
