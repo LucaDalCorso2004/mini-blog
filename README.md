@@ -35,8 +35,7 @@ Dieses Projekt nutzt MySQL als Datenbank, die über XAMPP läuft. Standardmäßi
 1. Starte XAMPP und aktiviere **Apache** und **MySQL** über das Control Panel.  
 2. Öffne im Browser [http://localhost/phpmyadmin](http://localhost/phpmyadmin).  
 3. Erstelle eine neue Datenbank, z.B. `mini_blog`.  
-4. Kopiere die Datei `db.example.php` im Projektordner zu `db.php`.  
-5. Öffne `db.php` und passe den Datenbanknamen an:  
+4. ändere den Name von db_example.php zu db.php
 
     ```php
     $dbname = 'mini_blog'; // Name deiner angelegten Datenbank
